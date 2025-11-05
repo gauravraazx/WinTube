@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CashTarget</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Monetag (LibTL) SDK -->
+  <script src="//libtl.com/sdk.js" data-zone="10142875" data-sdk="show_10142875" async></script>
+  <!-- GigaPub SDK -->
+  <script src="https://ad.gigapub.tech/script?id=3475" async></script>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Firebase + App Logic -->
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <!-- WIN PAGE -->
+  <div id="winPage" class="page active">
+    <!-- (unchanged) -->
+    <div class="app">
+      <div class="card prize">
+        <div class="label">Prize Pool</div>
+        <div class="amount" id="prizePoolDisplay">$10000</div>
+        <div class="small-muted">USDT for 1 Lucky Winner</div>
+      </div>
+
+      <div class="card global-target">
+        <div class="section-title">Global Target <span id="sessionDisplay" style="font-size:12px;color:var(--muted);">(Session: 1)</span></div>
+        <div class="row"><span class="small-muted">Remaining</span><span id="remaining" style="font-weight:700;font-size:15px;">0</span></div>
+        <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+        <div class="gt-grid">
+          <div class="gt-item"><div class="small-muted">Watched</div><div id="watched" class="gt-value">0</div></div>
+          <div class="gt-item"><div class="small-muted">Target</div><div id="target" class="gt-value">1000</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="user-box">
+          <div>
+            <div class="userid" id="userIdDisplay">NOT_APP</div>
+            <div class="small-muted">User ID</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="small-muted">Ads Watched</div>
+            <div id="adsview" style="font-weight:700;font-size:16px;">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card ad-card">
+        <div class="ad-screen" id="adScreen">
+          <svg width="64" height="64" viewBox="0 0 24 24">
+            <polygon points="6,4 20,12 6,20" fill="#111111"></polygon>
+          </svg>
+        </div>
+
+        <div style="font-weight:700;text-align:center;margin-bottom:8px;font-size:13px;">Choose an Ad to Watch</div>
+
+        <div class="ad-btns">
+          <button class="ad-btn" id="libtlAdBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20" fill="#ffffff"></polygon></svg>
+            <span>LibTL</span>
+          </button>
+          <button class="ad-btn" id="gigaAdBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20" fill="#ffffff"></polygon></svg>
+            <span>Giga</span>
+          </button>
+        </div>
+
+        <div class="small-muted" style="text-align:center;margin-top:8px;">Watch ads to increase your winning chance!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOU PAGE -->
+  <div id="youPage" class="page">
+    <!-- (unchanged) -->
+    <div class="app">
+      <div class="card">
+        <div class="profile-header">
+          <div class="avatar">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor"/>
+              <circle cx="12" cy="7" r="4" stroke="currentColor"/>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name" id="userIdProfile">NOT_APP</div>
+            <div class="small-muted">User ID</div>
+          </div>
+          <button class="copy-btn" onclick="window.copyID()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Stats</div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">Ads Watched</div>
+            <div class="stat-value" id="youAdsWatched">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Global Rank</div>
+            <div class="stat-value" id="globalRank">-</div>
+          </div>
+        </div>
+
+        <div class="card probability-card">
+          <div class="prob-title">Win Probability</div>
+          <div class="prob-value" id="probability">0%</div>
+          <div class="prob-subtitle">Based on your ad views</div>
+          <div class="prob-bar">
+            <div class="prob-fill" id="probFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USDT Balance Card with Wallet Address -->
+      <div class="card usdt-card">
+        <div class="usdt-header">
+          <div class="usdt-title">USDT Balance</div>
+          <div class="usdt-amount" id="usdtBalanceDisplay">$0.00</div>
+        </div>
+        
+        <div class="wallet-section">
+          <label class="wallet-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            TON USDT Wallet Address
+          </label>
+          <div class="wallet-input-group">
+            <input 
+              type="text" 
+              id="walletAddressInput" 
+              class="wallet-input" 
+              placeholder="UQxxx... or EQxxx..."
+              maxlength="66"
+            />
+            <button class="save-wallet-btn" onclick="window.saveWalletAddress()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Save
+            </button>
+          </div>
+          <div class="wallet-hint">Enter your TON network USDT wallet address</div>
+        </div>
+        
+        <button class="withdraw-btn" onclick="window.withdraw()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+          Withdraw (Min. $0.10)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANK PAGE -->
+  <div id="rankPage" class="page">
+    <!-- (unchanged) -->
+    <div class="app">
+      <div class="card">
+        <div class="rank-header">
+          <div class="rank-title">Global Leaderboard</div>
+          <div class="rank-subtitle">Top ad watchers competing for the prize</div>
+        </div>
+
+        <div class="rank-list" id="rankList">
+          <!-- Rankings will be generated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFER PAGE -->
+  <div id="referPage" class="page">
+    <div class="app">
+      <div class="card">
+        <div class="section-title">Invite Friends</div>
+        <div class="small-muted">Share your link and earn 10 ads for every new user!</div>
+      </div>
+
+      <div class="card">
+        <div class="ref-link-box">
+          <input 
+            type="text" 
+            id="refLinkInput" 
+            class="ref-link-input" 
+            readonly
+            value="Loading..."
+          />
+        </div>
+        <button class="copy-ref-btn" onclick="window.copyRefLink()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Invite Link
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Your Referrals</div>
+        <div class="ref-stats">
+          <div class="ref-item">
+            <span class="ref-label">Total Referred</span>
+            <span class="ref-value" id="totalReferred">0</span>
+          </div>
+          <div class="ref-item">
+            <span class="ref-label">Bonus Ads Earned</span>
+            <span class="ref-value" id="bonusAds">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="nav">
+    <div class="nav-item active" onclick="window.showPage('win')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="8" r="7"/>
+        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+      </svg>
+    </div>
+    <div class="nav-item" onclick="window.showPage('you')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </div>
+    <div class="nav-item" onclick="window.showPage('rank')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+    </div>
+    <div class="nav-item" onclick="window.showPage('refer')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+</body>
+</html>
