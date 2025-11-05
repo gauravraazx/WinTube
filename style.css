@@ -1,0 +1,383 @@
+/* Paste the entire CSS from previous response here — no changes */
+:root {
+  --bg: #000000;
+  --card: #ffffff;
+  --muted: #7d7d8a;
+  --accent: #0f0f13;
+  --primary: #635bff;
+  --success: #28c76f;
+  --warning: #ff9f43;
+  --danger: #ff4757;
+  --radius: 16px;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--accent);
+  padding-bottom: 70px;
+  font-size: 14px;
+}
+.app {
+  max-width: 480px;
+  margin: auto;
+  padding: 10px;
+}
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* WIN PAGE */
+.prize {
+  text-align: center;
+  border: 2px solid rgba(0,0,0,0.04);
+  padding: 12px;
+}
+.label {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.amount {
+  font-family: "Fredoka One";
+  font-size: 32px;
+  margin: 4px 0;
+}
+.small-muted {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.global-target .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.section-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.progress-wrap {
+  background: #eee;
+  border-radius: 999px;
+  height: 10px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+.progress {
+  height: 100%;
+  width: 0;
+  background: var(--primary);
+}
+.gt-grid {
+  display: flex;
+  gap: 8px;
+}
+.gt-item {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: #fbfbfb;
+}
+.gt-value {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.user-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userid {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.ad-card {
+  text-align: center;
+  padding: 14px;
+}
+.ad-screen {
+  height: 140px;
+  border-radius: 12px;
+  background: #f0f0f2;
+  border: 2px solid rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.ad-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.ad-btn {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  font-size: 13px;
+}
+.ad-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* YOU PAGE */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f0f0f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar svg {
+  width: 30px;
+  height: 30px;
+  stroke: var(--muted);
+  stroke-width: 2;
+}
+.profile-info {
+  flex: 1;
+}
+.profile-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+.copy-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.stat-box {
+  text-align: center;
+  padding: 12px;
+  background: #fbfbfb;
+  border-radius: 10px;
+}
+.stat-label {
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.probability-card {
+  text-align: center;
+}
+.prob-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.prob-value {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+.prob-subtitle {
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.prob-bar {
+  background: #eee;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.prob-fill {
+  height: 100%;
+  width: 0;
+  background: var(--primary);
+}
+
+/* RANK PAGE */
+.rank-header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.rank-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.rank-subtitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fbfbfb;
+  border-radius: 10px;
+}
+.rank-item.highlight {
+  background: #f0efff;
+  border: 2px solid var(--primary);
+  padding: 9px;
+}
+.rank-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.rank-number.gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+}
+.rank-number.silver {
+  background: linear-gradient(135deg, #C0C0C0, #808080);
+}
+.rank-number.bronze {
+  background: linear-gradient(135deg, #CD7F32, #8B4513);
+}
+.rank-info {
+  flex: 1;
+  min-width: 0;
+}
+.rank-name {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rank-stats {
+  font-size: 11px;
+  color: var(--muted);
+}
+.rank-ads {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* NAVIGATION */
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+}
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: auto;
+  background: #fff;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+  z-index: 1000;
+}
+.nav-item {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav-item.active {
+  color: var(--primary);
+}
+.nav-item svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+.toast.show {
+  opacity: 1;
+}
